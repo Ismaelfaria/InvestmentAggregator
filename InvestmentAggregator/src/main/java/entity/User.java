@@ -2,10 +2,12 @@ package entity;
 
 import java.time.Instant;
 import java.util.UUID;
+import jakarta.validation.constraints.*;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
 
 @Entity
@@ -16,12 +18,17 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private UUID userId;
 	
+	@NotNull(message = "O campo nome nao pode estar nulo")
 	@Column(name = "username")
 	private String userName;
 	
+	@NotNull(message = "O campo email nao pode estar nulo")
+	@Email
 	@Column(name = "email")
 	private String email;
 	
+	@NotNull(message = "O campo senha nao pode estar nulo")
+	@Size(min = 8, message = "A senha deve ter no mínimo 8 caracteres")
 	@Column(name = "password")
 	private String password;
 	
